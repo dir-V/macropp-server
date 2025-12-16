@@ -12,6 +12,7 @@ import jakarta.persistence.Table
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UuidGenerator
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -23,40 +24,39 @@ open class FoodLog(
 	var user: User,
 
 	@ManyToOne
-	@JoinColumn(name = "food_id", nullable = false)
-	var food: Food,
+	@JoinColumn(name = "food_id", nullable = true)
+	var food: Food?,
 
-	@Column(name = "quantity_g", nullable = false)
-	var quantityGrams: BigDecimal,
+	@Column(name = "name" , nullable = false)
+	var name: String,
 
-	@Column(name = "logged_at", nullable = false)
+	@Column(name = "quantity_g", nullable = true)
+	var quantityGrams: BigDecimal?,
+
+	@Column(name = "logged_at", nullable = true)
 	var loggedAt: LocalDateTime? = null,
+
+	@Column(name = "calories" , nullable = false)
+	var calories: Int,
+
+	@Column(name = "protein_g" , nullable = true)
+	var proteinGrams: BigDecimal? = null,
+
+	@Column(name = "carbs_g" , nullable = true)
+	var carbsGrams: BigDecimal? = null,
+
+	@Column(name = "fats_g" , nullable = true)
+	var fatsGrams: BigDecimal? = null,
 
 ) {
 
-	protected constructor() : this(User(), Food(), BigDecimal.ZERO, null)
-
+	constructor() : this(User(), Food(), "", null,null, 0, null, null, null)
 
 	@Id
 	@GeneratedValue
 	@UuidGenerator
 	@Column(name = "id", updatable = false, nullable = false)
 	var id: UUID? = null
-
-	@Column(name = "calories" , nullable = false)
-	var calories: Int? = null
-
-	@Column(name = "protein_g" , nullable = false)
-	var proteinGrams: BigDecimal? = null
-
-
-	@Column(name = "carbs_g" , nullable = false)
-	var carbsGrams: BigDecimal? = null
-
-
-	@Column(name = "fats_g" , nullable = false)
-	var fatsGrams: BigDecimal? = null
-
 
 	@CreationTimestamp
 	@Column(name = "created_at", updatable = false, nullable = false)
