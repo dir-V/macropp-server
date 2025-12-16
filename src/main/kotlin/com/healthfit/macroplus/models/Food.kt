@@ -16,7 +16,7 @@ import java.util.UUID
 
 @Entity
 @Table(name = "foods")
-class Food(
+open class Food(
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	var user: User,
@@ -27,18 +27,23 @@ class Food(
 	@Column(name = "calories_per_100g", nullable = false)
 	var caloriesPer100Grams: Int,
 
-	@Column(name = "protein_per_100g", nullable = false)
-	var proteinPer100Grams: BigDecimal,
+	@Column(name = "protein_per_100g", nullable = true)
+	var proteinPer100Grams: BigDecimal?,
 
-	@Column(name = "carbs_per_100g", nullable = false)
-	var carbsPer100Grams: BigDecimal,
+	@Column(name = "carbs_per_100g", nullable = true)
+	var carbsPer100Grams: BigDecimal?,
 
-	@Column(name = "fats_per_100g", nullable = false)
-	var fatsPer100Grams: BigDecimal,
+	@Column(name = "fats_per_100g", nullable = true)
+	var fatsPer100Grams: BigDecimal?,
 
-	@Column(name = "serving_size_g", nullable = false)
-	var servingSizeGrams: BigDecimal,
+	@Column(name = "serving_size_g", nullable = true)
+	var servingSizeGrams: BigDecimal?,
+
+	@Column(name = "barcode", nullable = false)
+	var barcode: Long? = null
 ) {
+
+	protected constructor() : this(User(), "", 0, null, null, null, null, null)
 
 	@Id
 	@GeneratedValue
@@ -54,12 +59,10 @@ class Food(
 	@Column(name = "updated_at", nullable = false)
 	var updatedAt: LocalDateTime? = null
 
-	@Column(name = "barcode", nullable = false)
-	var barcode: Long? = null
 
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
-		if (other !is User) return false
+		if (other !is Food) return false
 		return id != null && id == other.id
 	}
 
