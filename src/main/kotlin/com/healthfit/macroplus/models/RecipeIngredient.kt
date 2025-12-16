@@ -50,6 +50,6 @@ open class RecipeIngredient (
 	}
 
 	override fun toString(): String {
-		return "Recipe(id=$id, foodName='$food.name' quantity=$quantity)"
+		return "Recipe(id=$id, quantity=$quantity)"
 	}
 }
