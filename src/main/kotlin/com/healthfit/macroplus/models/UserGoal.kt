@@ -11,7 +11,7 @@ import java.util.*
 
 @Entity
 @Table(name = "user_goals")
-class UserGoals(
+class UserGoal(
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	var user: User,
@@ -61,7 +61,7 @@ class UserGoals(
 
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
-		if (other !is UserGoals) return false
+		if (other !is UserGoal) return false
 		return id != null && id == other.id
 	}
 
@@ -71,7 +71,7 @@ class UserGoals(
 	}
 
 	override fun toString(): String {
-		return "UserGoals(id=$id, userId=${user.id}, goalType=$goalType, targetCalories=$targetCalories, " +
+		return "UserGoal(id=$id, userId=${user.id}, goalType=$goalType, targetCalories=$targetCalories, " +
 				"targetProteinGrams=$targetProteinGrams, targetCarbGrams=$targetCarbsGrams), targetFatGrams=$targetFatsGrams, " +
 				"startDate=$startDate, endDate=$endDate, isActive=$isActive)"
 	}
