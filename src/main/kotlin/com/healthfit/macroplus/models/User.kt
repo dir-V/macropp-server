@@ -20,7 +20,7 @@ class User(
 //    protected no-arg constructor with default arguments
 //    secondary constructors in Kotlin must call the primary constructor
 //    dummy values are just passed to keep the compiler happy, they will be overridden
-    protected constructor() : this("", 0)
+    constructor() : this("", 0)
 
     @Id
     @GeneratedValue
