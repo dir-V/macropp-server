@@ -62,4 +62,17 @@ open class FoodLog(
 	@Column(name = "created_at", updatable = false, nullable = false)
 	var createdAt: LocalDateTime? = null
 
+	override fun equals(other: Any?): Boolean {
+		if (this === other) return true
+		if (other !is FoodLog) return false
+		return id != null && id == other.id
+	}
+
+	override fun hashCode(): Int {
+		return javaClass.hashCode()
+	}
+
+	override fun toString(): String {
+		return "FoodLog(id=$id, name='$name', calories=$calories, quantity=${quantityGrams}g)"
+	}
 }

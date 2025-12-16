@@ -24,18 +24,18 @@ open class WeighIn(
 
 	@Column(name = "weight_kg", nullable = false)
 	var weightKg: BigDecimal,
+
+	@Column(name = "weight_date", nullable = false)
+	var weightDate: LocalDate = LocalDate.now()
 ) {
 
-	constructor() : this(User(), BigDecimal.ZERO)
+	constructor() : this(User(), BigDecimal.ZERO, LocalDate.now())
 
 	@Id
 	@GeneratedValue
 	@UuidGenerator // replaces GenericGenerator
 	@Column(name = "id", updatable = false, nullable = false)
 	var id: UUID? = null
-
-	@Column(name = "weight_date", nullable = false)
-	var weight_date: LocalDate = LocalDate.now()
 
 	@CreationTimestamp
 	@Column(name = "created_at", nullable = false, updatable = false)
@@ -44,5 +44,19 @@ open class WeighIn(
 	@UpdateTimestamp
 	@Column(name = "updated_at", nullable = false)
 	var updatedAt: LocalDateTime? = null
+
+	override fun equals(other: Any?): Boolean {
+		if (this === other) return true
+		if (other !is WeighIn) return false
+		return id != null && id == other.id
+	}
+
+	override fun hashCode(): Int {
+		return javaClass.hashCode()
+	}
+
+	override fun toString(): String {
+		return "WeighIn(id=$id, Weight=${weightKg}kg, Date=${weightDate})"
+	}
 
 }
