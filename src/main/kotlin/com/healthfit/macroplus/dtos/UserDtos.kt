@@ -13,5 +13,6 @@ data class CreateUserRequest(
 data class UserResponse(
   val id: UUID,
   val email: String,
-  val heightCm: Int
+  val heightCm: Int,
+  val joinedDate: String
 )
