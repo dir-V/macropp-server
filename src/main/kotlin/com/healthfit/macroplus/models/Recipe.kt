@@ -2,6 +2,7 @@ package com.healthfit.macroplus.models
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
@@ -16,7 +17,7 @@ import java.util.UUID
 @Entity
 @Table(name = "recipes")
 open class Recipe(
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
 	var user: User,
 

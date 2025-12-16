@@ -12,7 +12,7 @@ import java.util.*
 @Entity
 @Table(name = "user_goals")
 class UserGoal(
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
 	var user: User,
 
