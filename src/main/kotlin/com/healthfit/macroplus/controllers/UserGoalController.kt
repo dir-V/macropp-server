@@ -2,7 +2,7 @@ package com.healthfit.macroplus.controllers
 
 import com.healthfit.macroplus.dtos.CreateUserGoalRequest
 import com.healthfit.macroplus.dtos.UserGoalResponse
-import com.healthfit.macroplus.models.UserGoal // Import your model
+import com.healthfit.macroplus.models.UserGoal
 import com.healthfit.macroplus.services.UserGoalService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
