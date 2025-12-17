@@ -6,4 +6,6 @@ import java.util.UUID
 
 interface FoodRepository : JpaRepository<Food, UUID> {
 
+	fun findByUserId(userId: UUID): List<Food>
+
 }
