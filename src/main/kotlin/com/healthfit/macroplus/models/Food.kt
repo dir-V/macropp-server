@@ -39,7 +39,7 @@ open class Food(
 	@Column(name = "serving_size_g", nullable = true, precision = 8, scale = 2)
 	var servingSizeGrams: BigDecimal?,
 
-	@Column(name = "barcode", nullable = false)
+	@Column(name = "barcode", nullable = true)
 	var barcode: Long? = null
 ) {
 
