@@ -53,8 +53,18 @@ class UserController(
 	  ResponseEntity.notFound().build()
 	}
   }
+    @GetMapping("/search")
+    fun getUserByEmail(
+        @RequestParam email: String
+    ): ResponseEntity<UserResponse> {
+        val user = userService.getUserByEmail(email)
 
-
+        return if (user != null) {
+            ResponseEntity.ok(user.toResponse())
+        } else {
+            ResponseEntity.notFound().build()
+        }
+    }
 
 //  helper function to convert the user object to dto
   private fun User.toResponse(): UserResponse {
