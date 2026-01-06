@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
@@ -58,6 +59,22 @@ open class FoodController(
 			ResponseEntity.ok(responseList)
 		} catch (e: NoSuchElementException) {
 			// return 404
+			ResponseEntity.notFound().build()
+		}
+	}
+
+//	GET http://localhost:8080/api/foods/user/{userId}/search?query=chicken
+	// search user's foods by name
+	@GetMapping("/user/{userId}/search")
+	open fun searchUserFoods(
+		@PathVariable userId: UUID,
+		@RequestParam query: String
+	): ResponseEntity<List<FoodResponse>> {
+		return try {
+			val foods = foodService.searchUserFoods(userId, query)
+			val responseList = foods.map { it.toResponse() }
+			ResponseEntity.ok(responseList)
+		} catch (e: NoSuchElementException) {
 			ResponseEntity.notFound().build()
 		}
 	}
