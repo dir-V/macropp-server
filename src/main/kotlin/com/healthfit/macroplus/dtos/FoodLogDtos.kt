@@ -33,3 +33,8 @@ data class FoodLogResponse(
 	val carbsGrams: BigDecimal?,
 	val fatsGrams: BigDecimal?
 )
+
+// update food log timestamp
+data class UpdateFoodLogTimestampRequest(
+	val loggedAt: LocalDateTime
+)

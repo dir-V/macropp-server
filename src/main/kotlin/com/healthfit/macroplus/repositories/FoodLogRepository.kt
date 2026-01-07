@@ -7,4 +7,6 @@ import java.util.UUID
 interface FoodLogRepository : JpaRepository<FoodLog, UUID> {
 
 	fun findByUserId(userId: UUID): List<FoodLog>
+
+	fun findByUserIdOrderByLoggedAtAsc(userId: UUID): List<FoodLog>
 }
