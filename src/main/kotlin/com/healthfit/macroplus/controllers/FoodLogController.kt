@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.time.LocalDate
 import java.util.UUID
 
 @RestController
@@ -54,12 +56,15 @@ class FoodLogController(
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdLog.toResponse())
 	}
 
-//	GET http://localhost:8080/api/food-logs/user/{userId}
-	// food log history for a user
+//	GET http://localhost:8080/api/food-logs/user/{userId}?date=2024-01-15
+	// food log history for a user, optionally filtered by date
 	@GetMapping("/user/{userId}")
-	fun getUserLogs(@PathVariable userId: UUID): ResponseEntity<List<FoodLogResponse>> {
+	fun getUserLogs(
+		@PathVariable userId: UUID,
+		@RequestParam(required = false) date: LocalDate?
+	): ResponseEntity<List<FoodLogResponse>> {
 		return try {
-			val logs = foodLogService.getFoodLogsForUser(userId)
+			val logs = foodLogService.getFoodLogsForUser(userId, date)
 			val responseList = logs.map { it.toResponse() }
 			ResponseEntity.ok(responseList)
 		} catch (e: NoSuchElementException) {
