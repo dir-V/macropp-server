@@ -9,6 +9,7 @@ import com.healthfit.macroplus.services.FoodLogService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -73,6 +74,18 @@ class FoodLogController(
 		return try {
 			val updatedLog = foodLogService.updateFoodLogTimestamp(id, request.loggedAt)
 			ResponseEntity.ok(updatedLog.toResponse())
+		} catch (e: NoSuchElementException) {
+			ResponseEntity.notFound().build()
+		}
+	}
+
+//	DELETE http://localhost:8080/api/food-logs/{id}
+//	delete a food log entry
+	@DeleteMapping("/{id}")
+	fun deleteFoodLog(@PathVariable id: UUID): ResponseEntity<Unit> {
+		return try {
+			foodLogService.deleteFoodLog(id)
+			ResponseEntity.noContent().build()
 		} catch (e: NoSuchElementException) {
 			ResponseEntity.notFound().build()
 		}
