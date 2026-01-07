@@ -8,4 +8,6 @@ interface FoodRepository : JpaRepository<Food, UUID> {
 
 	fun findByUserId(userId: UUID): List<Food>
 
+	fun findByUserIdAndNameContainingIgnoreCase(userId: UUID, name: String): List<Food>
+
 }

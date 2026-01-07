@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 
 interface WeighInRepository : JpaRepository<WeighIn, UUID> {
+	fun findByUserId(userId: UUID): List<WeighIn>
 }

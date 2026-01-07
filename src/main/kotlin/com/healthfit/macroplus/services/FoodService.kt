@@ -67,4 +67,14 @@ open class FoodService(
 		return foodRepository.findByUserId(userId)
 	}
 
+	@Transactional
+	open fun searchUserFoods(userId: UUID, query: String): List<Food> {
+
+		if (!userRepository.existsById(userId)) {
+			throw kotlin.NoSuchElementException("User not found with ID: $userId")
+		}
+
+		return foodRepository.findByUserIdAndNameContainingIgnoreCase(userId, query)
+	}
+
 }
