@@ -40,6 +40,13 @@ class UserService(
 	return userRepository.findById(id)
 	  .orElseThrow { NoSuchElementException("User not found with ID: $id") }
   }
+    @Transactional
+    fun getUserByEmail(email: String): User? {
+//        if (!userRepository.existsByEmail(email)) {
+//            throw IllegalArgumentException("User does not exist")
+//
+            return userRepository.findByEmail(email)
+    }
 
 
   @Transactional
