@@ -102,4 +102,12 @@ open class FoodLogService(
 		foodLog.loggedAt = newLoggedAt
 		return foodLogRepository.save(foodLog)
 	}
+
+	@Transactional
+	open fun deleteFoodLog(foodLogId: UUID) {
+		if (!foodLogRepository.existsById(foodLogId)) {
+			throw NoSuchElementException("Food log not found with ID: $foodLogId")
+		}
+		foodLogRepository.deleteById(foodLogId)
+	}
 }
