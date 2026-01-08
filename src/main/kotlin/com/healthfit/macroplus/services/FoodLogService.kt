@@ -58,12 +58,17 @@ open class FoodLogService(
 
 
 	@Transactional
-	 open fun addFoodLogQuickAdd(
+	open fun addFoodLogQuickAdd(
 		userId: UUID,
 		calories: Int,
 		quickName: String,
+
+		protein: BigDecimal,
+		carbs: BigDecimal,
+		fats: BigDecimal,
+
 		loggedAt: LocalDateTime? = LocalDateTime.now(),
-		): FoodLog {
+	): FoodLog {
 
 		val foundUser = userRepository.findById(userId)
 			.orElseThrow { NoSuchElementException("User not found with ID: $userId") }
@@ -73,11 +78,12 @@ open class FoodLogService(
 			food = null,
 			name = "Quick Add: $quickName",
 			quantityGrams = null,
-			loggedAt = loggedAt,
+			loggedAt = loggedAt ?: LocalDateTime.now(),
 			calories = calories,
-			proteinGrams = BigDecimal.ZERO,
-			carbsGrams = BigDecimal.ZERO,
-			fatsGrams = BigDecimal.ZERO
+
+			proteinGrams = protein,
+			carbsGrams = carbs,
+			fatsGrams = fats
 		)
 
 		return foodLogRepository.save(newFoodLog)

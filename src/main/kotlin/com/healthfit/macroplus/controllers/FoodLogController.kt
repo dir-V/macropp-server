@@ -35,14 +35,17 @@ class FoodLogController(
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdLog.toResponse())
 	}
 
-//	POST http://localhost:8080/api/food-logs/quick-add
-//	quick add cals
 	@PostMapping("/quick-add")
 	fun quickAddLog(@RequestBody request: QuickAddLogRequest): ResponseEntity<FoodLogResponse> {
 		val createdLog = foodLogService.addFoodLogQuickAdd(
 			userId = request.userId,
 			calories = request.calories,
 			quickName = request.quickName,
+
+			protein = request.proteinGrams,
+			carbs = request.carbsGrams,
+			fats = request.fatsGrams,
+
 			loggedAt = request.loggedAt
 		)
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdLog.toResponse())
