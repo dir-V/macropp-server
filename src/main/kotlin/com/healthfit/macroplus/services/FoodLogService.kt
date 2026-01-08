@@ -97,6 +97,23 @@ open class FoodLogService(
 			throw kotlin.NoSuchElementException("User not found with ID: $userId")
 		}
 
-		return foodLogRepository.findByUserId(userId)
+		return foodLogRepository.findByUserIdOrderByLoggedAtAsc(userId)
+	}
+
+	@Transactional
+	open fun updateFoodLogTimestamp(foodLogId: UUID, newLoggedAt: LocalDateTime): FoodLog {
+		val foodLog = foodLogRepository.findById(foodLogId)
+			.orElseThrow { NoSuchElementException("Food log not found with ID: $foodLogId") }
+
+		foodLog.loggedAt = newLoggedAt
+		return foodLogRepository.save(foodLog)
+	}
+
+	@Transactional
+	open fun deleteFoodLog(foodLogId: UUID) {
+		if (!foodLogRepository.existsById(foodLogId)) {
+			throw NoSuchElementException("Food log not found with ID: $foodLogId")
+		}
+		foodLogRepository.deleteById(foodLogId)
 	}
 }
