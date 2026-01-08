@@ -15,9 +15,17 @@ data class CreateFoodLogRequest(
 // create quick add food log
 data class QuickAddLogRequest(
 	val userId: UUID,
+
+	val name: String,
+
 	val calories: Int,
-	val quickName: String,
-	val loggedAt: LocalDateTime?
+
+	// 👇 NEW: Default to ZERO so the app doesn't crash if they are missing
+	val proteinGrams: BigDecimal = BigDecimal.ZERO,
+	val carbsGrams: BigDecimal = BigDecimal.ZERO,
+	val fatsGrams: BigDecimal = BigDecimal.ZERO,
+
+	val loggedAt: LocalDateTime? = null
 )
 
 // response dto to the frontend

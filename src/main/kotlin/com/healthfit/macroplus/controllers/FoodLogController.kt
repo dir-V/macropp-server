@@ -43,7 +43,7 @@ class FoodLogController(
 		val createdLog = foodLogService.addFoodLogQuickAdd(
 			userId = request.userId,
 			calories = request.calories,
-			quickName = request.quickName,
+			name = request.name,
 
 			protein = request.proteinGrams,
 			carbs = request.carbsGrams,
