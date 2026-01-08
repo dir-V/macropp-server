@@ -91,13 +91,19 @@ open class FoodLogService(
 
 
 	@Transactional
-	open fun getFoodLogsForUser(userId: UUID): List<FoodLog> {
+	open fun getFoodLogsForUser(userId: UUID, date: LocalDate? = null): List<FoodLog> {
 
 		if (!userRepository.existsById(userId)) {
 			throw kotlin.NoSuchElementException("User not found with ID: $userId")
 		}
 
-		return foodLogRepository.findByUserIdOrderByLoggedAtAsc(userId)
+		return if (date != null) {
+			val startOfDay = date.atStartOfDay()
+			val endOfDay = date.atTime(23, 59, 59)
+			foodLogRepository.findByUserIdAndLoggedAtBetweenOrderByLoggedAtAsc(userId, startOfDay, endOfDay)
+		} else {
+			foodLogRepository.findByUserIdOrderByLoggedAtAsc(userId)
+		}
 	}
 
 	@Transactional
