@@ -7,8 +7,7 @@ import java.util.UUID
 data class QuickAddLogRequest(
 	val userId: UUID,
 
-	// Matches "quickName" in Android
-	val quickName: String,
+	val name: String,
 
 	val calories: Int,
 
